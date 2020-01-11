@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <script src="config.js"></script>
 
     <script src="base.js"></script>
     <script src="features/products.js"></script>
     <script src="features/orders.js"></script>
     <script src="features/reports.js"></script>
-
-    <script src="config.js"></script>
     <script src="script.js"></script>
 </head>
 
@@ -107,6 +107,10 @@
     </section>
 
     <script>
+        if(typeof config === "undefined") {
+            throw new Error("Chybí konfigurace. Importujte soubor config.js v souboru index.html. Šablonu naleznete v config.template.js");
+        }
+        
         document.getElementById("createOrder").onclick = createOrder;
         document.getElementById("refresh").onclick = refresh;
 
