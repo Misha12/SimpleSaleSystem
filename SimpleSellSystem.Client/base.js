@@ -33,3 +33,19 @@ function processPost(endpoint, data, onSuccess, onError) {
     request.done(result => onSuccess(result))
     request.fail((xhr, textStatus, error) => onError(xhr, textStatus, error));
 }
+
+function createProductName(product, withID) { return (withID ? product.id + ': ' : '') + product.name + ' (' + product.volume + ')' };
+
+function createButton(text, classList, id, onClick) {
+    var button = $("<button>");
+    classList.push("btn");
+    id = `canSellChange_${id}`;
+
+    button
+        .attr('id', id)
+        .addClass(classList)
+        .html(text)
+        .on('click', onClick);
+
+    return button;
+}

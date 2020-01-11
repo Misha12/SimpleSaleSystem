@@ -7,8 +7,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="config.js"></script>
+
     <script src="base.js"></script>
+    <script src="features/products.js"></script>
+    <script src="features/orders.js"></script>
+    <script src="features/reports.js"></script>
+
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </head>
 
@@ -22,16 +27,22 @@
                     <li class="nav-item active" id="products">
                         <a class="nav-link" href="javascript:setActive('products', loadProducts)">Produkty</a>
                     </li>
+                    <li class="nav-item" id="orders">
+                        <a class="nav-link" href="javascript:setActive('orders', loadOrders)">Objednávky</a>
+                    </li>
+                    <li class="nav-item" id="reports">
+                        <a class="nav-link" href="javascript:setActive('reports', loadReport)">Report</a>
+                    </li>
                 </ul>
             </div>
 
-            <div class="d-flex justify-content-between w-25 align-items-center">
+            <div class="d-flex justify-content-between w-25 align-items-center only-products">
                 <h4 class="font-weight-bold d-inline-block text-white m-0 p-0 w-25">
                     Celkem: <span id="total_price">0</span>
                 </h4>
 
                 <button class="btn btn-lg btn-primary" id="createOrder">Zapsat příspěvek</button>
-                <button class="btn btn-lg btn-danger">Zrušit</button>
+                <button class="btn btn-lg btn-danger" id="refresh">Obnovit</button>
             </div>
         </div>
     </nav>
@@ -55,8 +66,49 @@
         </div>
     </section>
 
+    <section id="section-orders" class="d-none">
+        <div class="row mr-0">
+            <div class="col-md-12 pr-0">
+                <table class="table" id="orders-table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Produkt</th>
+                            <th>Příspěvek za kus</th>
+                            <th>Množství</th>
+                            <th>Celkový příspěvek</th>
+                            <th>Stornováno v</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+    </section>
+
+    <section id="section-reports" class="d-none">
+        <div class="row mr-0">
+            <div class="col-md-12 pr-0">
+                <table class="table" id="report-table">
+                    <thead class="thead-dark">
+                        <th>Produkt</th>
+                        <th>Celkový počet</th>
+                        <th>Počet nestornovaných</th>
+                        <th>Celková cena</th>
+                        <th>Tržba</th>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr></tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </section>
+
     <script>
         document.getElementById("createOrder").onclick = createOrder;
+        document.getElementById("refresh").onclick = refresh;
 
         setActive('products', loadProducts);
     </script>
