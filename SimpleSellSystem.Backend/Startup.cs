@@ -17,7 +17,9 @@ namespace SimpleSellSystem.Backend
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSwaggerDocument(c =>
             {
@@ -35,22 +37,18 @@ namespace SimpleSellSystem.Backend
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
             else
-            {
                 app.UseHsts();
-            }
 
-            app.UseStaticFiles();
-            app.UseOpenApi();
-            app.UseSwaggerUi3(c => c.CustomStylesheetPath = "/swagger/ui/custom.css");
-
-            app.UseHttpsRedirection();
-            app.UseCors(o => o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseMiddleware<CorsMiddleware>();
-            app.UseMvc();
+            app
+                .UseStaticFiles()
+                .UseOpenApi()
+                .UseSwaggerUi3(c => c.CustomStylesheetPath = "/swagger/ui/custom.css")
+                .UseHttpsRedirection()
+                .UseCors(o => o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
+                .UseMiddleware<CorsMiddleware>()
+                .UseMvc();
         }
     }
 }
