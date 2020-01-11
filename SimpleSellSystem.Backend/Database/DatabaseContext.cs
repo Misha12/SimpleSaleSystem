@@ -6,7 +6,7 @@ namespace SimpleSellSystem.Backend.Database
 {
     public class DatabaseContext : DbContext
     {
-        private string ConnectionString { get; set; }
+        private string ConnectionString { get; }
 
         public DatabaseContext(IConfiguration config) : this(config["ConnectionString"])
         {
