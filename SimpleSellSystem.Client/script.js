@@ -1,48 +1,39 @@
-var active = 'products';
-var apiUrl = 'https://apps.misha12.eu/simpleSellSystem_api';
-
 function setActive(id, callback) {
-    document.getElementById(active).classList.remove('active');
+    document.getElementById(config.active).classList.remove('active');
     document.getElementById(id).classList.add('active');
 
-    document.getElementById('section-' + active).classList.add('d-none');
+    document.getElementById('section-' + config.active).classList.add('d-none');
     document.getElementById('section-' + id).classList.remove('d-none');
 
-    active = id;
+    config.active = id;
     if (callback) {
         callback();
     }
 }
 
 function loadProducts() {
-    var xhttp = new XMLHttpRequest();
-    var table = $("#products-table tbody");
-    table.empty();
+    var onSuccess = (data) => {
+        var table = $("#products-table tbody");
+        table.empty();
 
-    xhttp.onreadystatechange = (_) => {
-        if (xhttp.readyState == xhttp.DONE) {
-            if (xhttp.status == 200) {
-                var json = JSON.parse(xhttp.responseText);
+        for (var item of data) {
+            var cells = [
+                $("<td>").html(item.id),
+                $("<td>").html(item.name),
+                $("<td>").html(item.volume),
+                $("<td>").html(item.price),
+                $("<td>").addClass(['form-row', 'mr-0']).html(generateProductInputField(item))
+            ];
 
-                for (var item of json) {
-                    var cells = [
-                        $("<td>").html(item.id),
-                        $("<td>").html(item.name),
-                        $("<td>").html(item.volume),
-                        $("<td>").html(item.price),
-                        $("<td>").addClass(['form-row', 'mr-0']).html(generateProductInputField(item))
-                    ];
-
-                    table.append($("<tr>").html(cells));
-                }
-            } else {
-                alert('Při načítání produktů došlo k chybě. Server vrátil ' + xhttp.statusText + ' - ' + xhttp.responseText);
-            }
+            table.append($("<tr>").html(cells));
         }
-    }
+    };
 
-    xhttp.open('GET', apiUrl + '/products', true);
-    xhttp.send();
+    var onError = (xhttp) => {
+        alert('Při načítání produktů došlo k chybě. Server vrátil ' + xhttp.statusText + ' - ' + xhttp.responseText);
+    };
+
+    processAjax('GET', '/products', onSuccess, onError);
 }
 
 function generateProductInputField(item) {
@@ -78,9 +69,6 @@ function generateProductInputField(item) {
         inputs.push($("<div>").addClass('col-auto').html(textField));
         inputs.push($("<div>").addClass('col-auto').html(plusButton));
         inputs.push($("<div>").addClass('col-auto').html(minusButton));
-
-        var buttonPay = createButton('Zaplatit', ['bg-primary', 'text-white'], `pay_${item.id}`, () => createOrder(item.id));
-        inputs.push($("<div>").addClass('col-auto').html(buttonPay));
     } else {
         inputs.push(createButton("Aktivovat", ["btn-success"], item.id, () => toggleProduct(item.id)));
     }
@@ -103,51 +91,50 @@ function createButton(text, classList, id, onClick) {
 }
 
 function toggleProduct(itemId) {
-    var xhttp = new XMLHttpRequest();
+    var onSuccess = (_) => loadProducts();
+    var onError = (xhttp) => alert('Při přepnutí prodejnosti produktu došlo k chybě. Server vrátil ' + xhttp.statusText + ' - ' + xhttp.responseText);
 
-    xhttp.onreadystatechange = (_) => {
-        if (xhttp.readyState == xhttp.DONE) {
-            if (xhttp.status == 200) {
-                loadProducts();
-            } else {
-                alert('Při přepnutí prodejnosti produktu došlo k chybě. Server vrátil ' + xhttp.statusText + ' - ' + xhttp.responseText);
-            }
-        }
-    }
-
-    xhttp.open('PUT', apiUrl + '/products/' + itemId + '/toggle', true);
-    xhttp.send();
+    processAjax('PUT', '/products/' + itemId + '/toggle', onSuccess, onError);
 }
 
-function createOrder(itemId) {
-    var amount = parseInt($("#amount_" + itemId).val(), 10);
+function createOrder() {
+    var products = getOrderingProducts();
 
-    $.ajax({
-        url: apiUrl + '/orders',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ productID: itemId, amount })
-    }).done((msg) => {
-        alert('Objednávka byla úspěšně provedena.')
-        loadProducts();
-        calculatePrices();
-    });
+    for (var product of products) {
+        processPost(
+            '/orders',
+            { productID: product.id, amount: product.amount },
+            (data) => console.log(data),
+            (_, text, error) => console.error(text, error)
+        );
+    }
+
+    alert('Objednávka byla odeslána.');
+    loadProducts();
 }
 
 function loadOrders() {
     console.log('loadOrders');
 }
 
-function calculatePrices() {
+function getOrderingProducts() {
     var rows = $("#products-table tbody tr").toArray();
-    var totalPrice = 0;
-    
-    for(var row of rows) {
-        var price = parseInt(row.cells[3].innerText);
-        var amount = parseInt(row.cells[4].childNodes[1].childNodes[0].value, 10);
+    var products = [];
 
-        totalPrice += price * amount;
+    for (var row of rows) {
+        var amount = parseInt(row.cells[4].childNodes[1].childNodes[0].value, 10);
+        if(amount == 0) continue;
+
+        var id = parseInt(row.cells[0].innerText);
+        var price = parseInt(row.cells[3].innerText);
+
+        products.push({ id, price, amount });
     }
 
-    $("#total_price").html(totalPrice);
+    return products;
+}
+
+function calculatePrices() {
+    var products = getOrderingProducts();
+    $("#total_price").html(products.reduce((prev, act) => { return prev + (act.price * act.amount) }, 0));
 }
