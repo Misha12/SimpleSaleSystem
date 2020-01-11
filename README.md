@@ -1,0 +1,2 @@
+# SimpleSellSystem
+ Jednoduchý prodejní systém.
