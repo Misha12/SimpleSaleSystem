@@ -1,4 +1,4 @@
-﻿namespace SimpleSellSystem.Backend.Models
+﻿namespace SimpleSaleSystem.Backend.Models
 {
     public class OrderInsertData
     {

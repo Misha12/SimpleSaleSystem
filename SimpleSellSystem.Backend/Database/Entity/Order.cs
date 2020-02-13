@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SimpleSellSystem.Backend.Database.Entity
+namespace SimpleSaleSystem.Backend.Database.Entity
 {
     [Table("Orders")]
     public class Order

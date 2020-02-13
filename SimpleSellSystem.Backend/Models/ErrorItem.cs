@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimpleSellSystem.Backend.Models
+namespace SimpleSaleSystem.Backend.Models
 {
     public class ErrorItem
     {

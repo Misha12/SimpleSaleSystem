@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace SimpleSellSystem.Backend
+namespace SimpleSaleSystem.Backend
 {
     public static class Program
     {

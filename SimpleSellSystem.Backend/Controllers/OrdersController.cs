@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NSwag.Annotations;
-using SimpleSellSystem.Backend.Database;
-using SimpleSellSystem.Backend.Database.Entity;
-using SimpleSellSystem.Backend.Models;
+using SimpleSaleSystem.Backend.Database;
+using SimpleSaleSystem.Backend.Database.Entity;
+using SimpleSaleSystem.Backend.Models;
 
-namespace SimpleSellSystem.Backend.Controllers
+namespace SimpleSaleSystem.Backend.Controllers
 {
     [ApiController]
     [Route("/orders")]

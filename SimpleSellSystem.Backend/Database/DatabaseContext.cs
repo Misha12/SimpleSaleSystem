@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using SimpleSellSystem.Backend.Database.Entity;
+using SimpleSaleSystem.Backend.Database.Entity;
 
-namespace SimpleSellSystem.Backend.Database
+namespace SimpleSaleSystem.Backend.Database
 {
     public class DatabaseContext : DbContext
     {

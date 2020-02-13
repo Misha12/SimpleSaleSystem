@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SimpleSellSystem.Backend
+namespace SimpleSaleSystem.Backend
 {
     public class Startup
     {

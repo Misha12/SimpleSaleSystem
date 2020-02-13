@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace SimpleSellSystem.Backend
+namespace SimpleSaleSystem.Backend
 {
     public class CorsMiddleware
     {

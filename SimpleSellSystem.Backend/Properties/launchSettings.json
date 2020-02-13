@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "SimpleSellSystem.Backend": {
+    "SimpleSaleSystem.Backend": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",
