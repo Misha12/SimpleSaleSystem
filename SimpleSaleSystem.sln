@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSaleSystem.Backend", "SimpleSellSystem.Backend\SimpleSaleSystem.Backend.csproj", "{1F02C9E6-FF7C-4307-A39C-6EC93E73F30D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSaleSystem.Backend", "SimpleSaleSystem.Backend\SimpleSaleSystem.Backend.csproj", "{1F02C9E6-FF7C-4307-A39C-6EC93E73F30D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleSaleSystem.Client", "SimpleSaleSystem.Client", "{27F4A617-FABC-4B2C-AB26-62EFA9B8D710}"
 	ProjectSection(SolutionItems) = preProject
-		SimpleSellSystem.Client\base.js = SimpleSellSystem.Client\base.js
-		SimpleSellSystem.Client\config.template.js = SimpleSellSystem.Client\config.template.js
-		SimpleSellSystem.Client\index.html = SimpleSellSystem.Client\index.html
-		SimpleSellSystem.Client\script.js = SimpleSellSystem.Client\script.js
+		SimpleSaleSystem.Client\base.js = SimpleSaleSystem.Client\base.js
+		SimpleSaleSystem.Client\config.template.js = SimpleSaleSystem.Client\config.template.js
+		SimpleSaleSystem.Client\index.html = SimpleSaleSystem.Client\index.html
+		SimpleSaleSystem.Client\script.js = SimpleSaleSystem.Client\script.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "features", "features", "{DF5B3E4C-57EE-4E4B-8505-E38489D9E847}"
 	ProjectSection(SolutionItems) = preProject
-		SimpleSellSystem.Client\features\orders.js = SimpleSellSystem.Client\features\orders.js
-		SimpleSellSystem.Client\features\products.js = SimpleSellSystem.Client\features\products.js
-		SimpleSellSystem.Client\features\reports.js = SimpleSellSystem.Client\features\reports.js
+		SimpleSaleSystem.Client\features\orders.js = SimpleSaleSystem.Client\features\orders.js
+		SimpleSaleSystem.Client\features\products.js = SimpleSaleSystem.Client\features\products.js
+		SimpleSaleSystem.Client\features\reports.js = SimpleSaleSystem.Client\features\reports.js
 	EndProjectSection
 EndProject
 Global
